@@ -405,91 +405,22 @@
       
         
           
-            <p> 自一个月之前就该安装的MATLAB拖延到现在才装，期间大部分时间用在了下载orz，安装时也遇到了一些问题，幸而网上有很多前辈的文章可以拿来参考。现记下我的安装过程，供自己以后翻看和其他同学参考。</p>
-<ul>
-<li><strong>环境：Ubuntu 16.04LTS</strong></li>
-<li><strong>版本：MATLAB R2014b</strong></li>
-</ul>
-<hr>
-<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ul>
-<li>MATLAB 2014B 下载地址（带Crack）：<ul>
-<li>链接: <a href="https://pan.baidu.com/s/1eRPPGyA" target="_blank" rel="noopener">https://pan.baidu.com/s/1eRPPGyA</a> 密码: srqr</li>
-</ul>
-</li>
-</ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
-<li>这个地址下载下来的是ISO文件，不需要解压，在终端执行以下命令，会将iso文件挂载到Ubuntu：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /media/matlab  </span><br><span class="line">sudo mount -o loop [path]matlab_R2014b.iso /media/matlab</span><br></pre></td></tr></table></figure>
-<p> 在网上看到的教程里直接继续执行以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /media/matlab</span><br><span class="line">sudo ./install</span><br></pre></td></tr></table></figure>
-<p> 但是我在执行的时候出现了问题，图形安装界面到选择安装产品时提示</p>
-<blockquote>
-<p>（需要继续安装以下一个或多个产品: MATLAB 8.4(不可用) 您必须选择已至少安装这些）</p>
-</blockquote>
-<p> <strong>这是由于还没有将java/jar/install.jar文件替换成crack目录下的install.jar。但是挂载之后的ISO是只读文件系统，因此不能直接替换文件，故需要先将挂载之后的所有文件复制到其他本地目录里。</strong></p>
-<ul>
-<li>将ISO的所有文件复制到/matlab2014b</li>
-<li>用 crack 中的 install.jar 替换 matlab2014b/java/jar/ 中的install.jar</li>
-<li><p>此时文件夹很可能是只读的，所以要先给文件夹加权限：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod a+w -R matlab2014b</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行matlab2014b目录下的install：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./install</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>我执行到这里又出现了问题，提示：</p>
-<blockquote>
-<p>sudo: ./install:找不到命令</p>
-</blockquote>
-<p> 切换到su的时候提示</p>
-<blockquote>
-<p>su:认证失败</p>
-</blockquote>
-<p> 我使用的方法是执行以下命令重新修改密码，然后可顺利切换至root。</p>
-  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure>
-<p> 然后执行su切换到root，此时再次运行matlab2014b目录下的install，会出现权限不够的问题：</p>
-<blockquote>
-<p>bash: ./install: 权限不够</p>
-</blockquote>
-<p> 需要给install加上执行权限：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x ./install</span><br></pre></td></tr></table></figure>
-<p> 或者把全部权限都加上：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +777 ./install</span><br></pre></td></tr></table></figure>
-<p> 之后还会遇到permission denied问题，以下是我遇到的问题汇总：</p>
-<ol>
-<li>./install: 1: exec: /home/xxx/R2014b/bin/glnxa64/install_unix: Permission denied<br><strong>解决方法</strong>：切换到install_unix文件所在的路径下，执行chmod +777 install_unix</li>
-<li>install:1:eval:/tmp/mathworks_6992/sys/Java/jre/glnx86/jre/bin/java: Permission denied<br><strong>解决方法</strong>：切换到安装包下对应的sys/java/jre/glnx86/jre/bin路径，执行chmod +x java</li>
-</ol>
-<p>接下来可以顺利执行（依然是root下）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install</span><br></pre></td></tr></table></figure>
-<p>默认安装目录是 /usr/local/MATALAB/R2014b/<br>安装密钥：29797-39064-48306-32452<br>接下来的证书文件是 crack 中的 license.lic<br>正常安装，直到完成</p>
-<ul>
-<li>但是之前的激活是不会成功的，因为还没有打补丁。接下来，把 crack 中的 libmwservices.so 复制到 /usr/local/MATLAB/R2014b/bin/glnxa64/ 中：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo mv /usr/local/MATLAB/R2014b/bin/glnxa64/libmwservices.so  /usr/local/MATLAB/R2014b/bin/glnxa64/libmwservices.so.bak  // 备份原来的文件</span><br><span class="line"></span><br><span class="line">cp crack/libmwservices.so /usr/local/MATLAB/R2014b/bin/glnxa64/ //把破解补丁拷过来</span><br><span class="line"></span><br><span class="line">sudo /usr/local/MATLAB/R2014b/bin/activate_matlab.sh -propertiesFile /usr/local/MATLAB/R2014b/etc/activate.ini  //执行破解命令</span><br></pre></td></tr></table></figure>
-<p> 接着会再次弹出让输入证书的窗口，继续找 crack 中的  license.lic</p>
-<ul>
-<li><p>打开MATLAB：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/MATLAB/R2014b/bin/matlab</span><br></pre></td></tr></table></figure>
-<p>现在打开MATLAB运行的时候会卡死，强制杀死进程：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -e | grep MAT</span><br><span class="line">kill &lt;PID&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>报错的主要原因是，引起这种错误的原因是Ubuntu15.04及以上版本包含更新版本的libstdc++.so.6，而Matlab使用的是较旧版本（versioin 6.0.17）。当Matlab首先加载<br>/usr/local/MATLAB/R2016a/sys/os/glnxa64 中的libstdc++.so.6.0.17时，操作系统收到一个Matlab引起的不兼容错误（incompatibility），从而引发启动奔溃（crash）</p>
-<p> <strong>解决方法</strong></p>
-<p> 可以强制使Matlab加载由操作系统提供的更新版的libstdc++库，通过以下三个操作完成：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 进入sys/os/glnxa6 目录</span><br><span class="line">cd /usr/local/MATLAB/R2014b/sys/os/glnxa64</span><br><span class="line"></span><br><span class="line">// 重命名libstdc++.so.6 共享库为 libstdc++.so.6.bak</span><br><span class="line">mv libstdc++.so.6 libstdc++.so.6.bak</span><br></pre></td></tr></table></figure>
-<p>MathWorks官方只对libstdc++.so.6(version 20)做了有限的测试。目前，这个Bug已经在R2016b(9.1)中修复完毕。</p>
-<p>接下来可以设置环境变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/profile</span><br><span class="line"></span><br><span class="line">在文件尾添加：</span><br><span class="line">export PATH=/usr/local/MATLAB/R2014b/bin:$PATH</span><br><span class="line"></span><br><span class="line">保存并退出后使设置生效</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="http://www.cnblogs.com/asmer-stone/p/5991012.html" target="_blank" rel="noopener">http://www.cnblogs.com/asmer-stone/p/5991012.html</a></li>
-<li><a href="http://www.linuxidc.com/Linux/2016-07/133758.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2016-07/133758.htm</a></li>
-<li><a href="http://blog.csdn.net/stayfoolish_fan/article/details/53998734" target="_blank" rel="noopener">http://blog.csdn.net/stayfoolish_fan/article/details/53998734</a></li>
-</ol>
+           自一个月之前就该安装的MATLAB拖延到现在才装，期间大部分时间用在了下载orz，安装时也遇到了一些问题，幸而网上有很多前辈的文章可以拿来参考。现记下我的安装过程，供自己以后翻看和其他同学参考。
 
-          
+环境：Ubuntu 16.04LTS
+版本：MATLAB R2014b
+
+
+下载
+MATLAB 20
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/21/Ubuntu16.04LTS安装MATLAB2014b简明指南/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -607,17 +538,15 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/21/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
