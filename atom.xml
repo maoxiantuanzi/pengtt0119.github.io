@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://pengtt0119.com/"/>
+  <link href="https://pengtt0119.github.io/"/>
   <updated>2019-02-21T08:02:24.928Z</updated>
-  <id>http://pengtt0119.com/</id>
+  <id>https://pengtt0119.github.io/</id>
   
   <author>
     <name>Variable</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Ubuntu16.04LTS安装MATLAB2014b简明指南</title>
-    <link href="http://pengtt0119.com/2019/02/21/Ubuntu16.04LTS%E5%AE%89%E8%A3%85MATLAB2014b%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
-    <id>http://pengtt0119.com/2019/02/21/Ubuntu16.04LTS安装MATLAB2014b简明指南/</id>
+    <link href="https://pengtt0119.github.io/2019/02/21/Ubuntu16.04LTS%E5%AE%89%E8%A3%85MATLAB2014b%E7%AE%80%E6%98%8E%E6%8C%87%E5%8D%97/"/>
+    <id>https://pengtt0119.github.io/2019/02/21/Ubuntu16.04LTS安装MATLAB2014b简明指南/</id>
     <published>2019-02-21T08:00:22.119Z</published>
     <updated>2019-02-21T08:02:24.928Z</updated>
     
@@ -36,21 +36,21 @@
     
     </summary>
     
-      <category term="技术参考" scheme="http://pengtt0119.com/categories/%E6%8A%80%E6%9C%AF%E5%8F%82%E8%80%83/"/>
+      <category term="技术参考" scheme="https://pengtt0119.github.io/categories/%E6%8A%80%E6%9C%AF%E5%8F%82%E8%80%83/"/>
     
     
-      <category term="Ubuntu" scheme="http://pengtt0119.com/tags/Ubuntu/"/>
+      <category term="Ubuntu" scheme="https://pengtt0119.github.io/tags/Ubuntu/"/>
     
-      <category term="MATLAB" scheme="http://pengtt0119.com/tags/MATLAB/"/>
+      <category term="MATLAB" scheme="https://pengtt0119.github.io/tags/MATLAB/"/>
     
-      <category term="Linux" scheme="http://pengtt0119.com/tags/Linux/"/>
+      <category term="Linux" scheme="https://pengtt0119.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://pengtt0119.com/2019/02/21/hello-world/"/>
-    <id>http://pengtt0119.com/2019/02/21/hello-world/</id>
+    <link href="https://pengtt0119.github.io/2019/02/21/hello-world/"/>
+    <id>https://pengtt0119.github.io/2019/02/21/hello-world/</id>
     <published>2019-02-21T05:49:59.296Z</published>
     <updated>2019-02-20T01:51:23.993Z</updated>
     
